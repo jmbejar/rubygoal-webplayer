@@ -47,14 +47,15 @@ var Player = {
 
     context.drawImage(this.backgroundObj, 0, 0);
     context.drawImage(this.ballObj, frame.ball.x, frame.ball.y);
-    //for(var i = 0; i < 11; i += 1) {
-    //rotateAndPaintImage(context, homeObj, data.home[i].angle, data.home[i].x, data.home[i].y);
-    //rotateAndPaintImage(context, awayObj, data.away[i].angle, data.away[i].x, data.away[i].y);
-    //}
+    for(var i = 0; i < 11; i += 1) {
+      var home_player_position = frame.teams.home_player_positions[i];
+      var away_player_position = frame.teams.away_player_positions[i];
+
+      this.rotateAndPaintImage(context, this.homeObj, 0, home_player_position.x, home_player_position.y);
+      this.rotateAndPaintImage(context, this.awayObj, 0, away_player_position.x, away_player_position.y);
+    }
     this.drawScore(context, frame.score.home, frame.score.away);
     this.drawTime(context, frame.time);
-
-    //debug(data.viewers);
   },
 
   play: function() {

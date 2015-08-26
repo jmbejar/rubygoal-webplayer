@@ -1,5 +1,5 @@
 <!-- Imports polymer -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="bower_components/polymer/polymer.html">
 
 <!-- Defines element markup -->
 <dom-module id="rubygoal-player">
@@ -8,12 +8,16 @@
   </template>
 </dom-module>
 
+<script src="assets/javascript/player.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
 <!-- Registers custom element -->
 <script>
 Polymer({
   is: 'rubygoal-player',
 
-  ready: function() {
+  attached: function() {
+    Player.init(this.$.player);
   }
 });
 </script>

@@ -46,13 +46,13 @@ var Player = {
     var context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
-    context.drawImage(this.ballObj, frame.ball.x, frame.ball.y);
+    context.drawImage(this.ballObj, frame.ball.x - this.ballObj.width / 2, frame.ball.y - this.ballObj.height / 2);
     for(var i = 0; i < 11; i += 1) {
-      var home_player_position = frame.teams.home_player_positions[i];
-      var away_player_position = frame.teams.away_player_positions[i];
+      var home_player = frame.home_players[i];
+      var away_player = frame.away_players[i];
 
-      this.rotateAndPaintImage(context, this.homeObj, 0, home_player_position.x, home_player_position.y);
-      this.rotateAndPaintImage(context, this.awayObj, 0, away_player_position.x, away_player_position.y);
+      this.rotateAndPaintImage(context, this.homeObj, home_player.angle, home_player.x, home_player.y);
+      this.rotateAndPaintImage(context, this.awayObj, away_player.angle, away_player.x, away_player.y);
     }
     this.drawScore(context, frame.score.home, frame.score.away);
     this.drawTime(context, frame.time);

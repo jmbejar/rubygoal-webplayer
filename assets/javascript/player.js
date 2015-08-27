@@ -13,19 +13,30 @@ var Player = {
     return time;
   },
 
-  rotateAndPaintImage: function(context, image, angle, x, y) {
-    var width = 60;
-    var height = 60;
+  rotateAndPaintImage: function(texture, angle, x, y) {
     var context = this.context;
 
+    context.save();
     context.translate(x, y);
     context.rotate(angle * Math.PI/180);
-    context.drawImage(image, -width / 2, -height / 2, width, height);
-    context.rotate(-angle * Math.PI/180);
-    context.translate(-x, -y);
+    context.drawImage(texture, -texture.width / 2, -texture.height / 2, texture.width, texture.height);
+    context.restore();
   },
 
-  drawTime: function(context, time) {
+  rotateAndFillText: function(text, font, style, x, y, angle) {
+    var context = this.context;
+
+    context.save();
+    context.translate(x, y);
+    context.rotate(angle * Math.PI / 180);
+    context.font = font;
+    context.textAlign = 'center';
+    context.fillStyle = style;
+    context.fillText(text, 0, 0);
+    context.restore();
+  },
+
+  drawTime: function(time) {
     var context = this.context;
 
     context.font="48px Source Sans Pro";
@@ -33,7 +44,7 @@ var Player = {
     context.fillText(this.formatTime(time), 820, 60);
   },
 
-  drawScore: function(context, home, away) {
+  drawScore: function(home, away) {
     var context = this.context;
 
     context.font="48px Source Sans Pro";
@@ -42,28 +53,35 @@ var Player = {
     context.fillText(away, 1210, 60);
   },
 
+  drawTeamNames: function() {
+    var context = this.context;
+    var font = "64px Source Sans Pro";
+    var style = 'white';
+
+    this.rotateAndFillText(this.teams.home, font, style, 120, 570, 270);
+    this.rotateAndFillText(this.teams.away, font, style, 1790, 570, 90);
+  },
+
   drawFrame: function(frame) {
     var context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
-    context.drawImage(
-      this.ballObj,
-      frame.ball.x - this.ballObj.width / 2,
-      frame.ball.y - this.ballObj.height / 2
-    );
+    this.rotateAndPaintImage(this.ballObj, 0, frame.ball.x, frame.ball.y);
+
     for(var i = 0; i < 11; i += 1) {
       this.drawPlayer(frame.home_players[i], 'home');
       this.drawPlayer(frame.away_players[i], 'away');
     }
-    this.drawScore(context, frame.score.home, frame.score.away);
-    this.drawTime(context, frame.time);
+    this.drawScore(frame.score.home, frame.score.away);
+    this.drawTime(frame.time);
+
+    this.drawTeamNames();
   },
 
   drawPlayer: function(data, side) {
     var texture = this.getPlayerTexture(side, data.type);
 
     this.rotateAndPaintImage(
-      this.context,
       texture,
       data.angle,
       data.x,
@@ -99,7 +117,7 @@ var Player = {
     this.ballObj.src = 'assets/images/ball.png';
 
     this.playerTextures = { home: {}, away: {} };
-    
+
     texture = new Image();
     texture.src = 'assets/images/average_home.png';
     this.playerTextures.home.average = texture;
@@ -107,7 +125,7 @@ var Player = {
     texture = new Image();
     texture.src = 'assets/images/average_away.png';
     this.playerTextures.away.average = texture;
-    
+
     texture = new Image();
     texture.src = 'assets/images/fast_home.png';
     this.playerTextures.home.fast = texture;
@@ -115,7 +133,7 @@ var Player = {
     texture = new Image();
     texture.src = 'assets/images/fast_away.png';
     this.playerTextures.away.fast = texture;
-    
+
     texture = new Image();
     texture.src = 'assets/images/captain_home.png';
     this.playerTextures.home.captain = texture;
@@ -126,6 +144,8 @@ var Player = {
 
     $.getJSON("recorded_game.json", function(json) {
       this.frames = json.frames;
+      this.teams = json.teams;
+
       this.play();
     }.bind(this));
   }

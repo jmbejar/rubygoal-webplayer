@@ -46,16 +46,33 @@ var Player = {
     var context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
-    context.drawImage(this.ballObj, frame.ball.x - this.ballObj.width / 2, frame.ball.y - this.ballObj.height / 2);
+    context.drawImage(
+      this.ballObj,
+      frame.ball.x - this.ballObj.width / 2,
+      frame.ball.y - this.ballObj.height / 2
+    );
     for(var i = 0; i < 11; i += 1) {
-      var home_player = frame.home_players[i];
-      var away_player = frame.away_players[i];
-
-      this.rotateAndPaintImage(context, this.homeObj, home_player.angle, home_player.x, home_player.y);
-      this.rotateAndPaintImage(context, this.awayObj, away_player.angle, away_player.x, away_player.y);
+      this.drawPlayer(frame.home_players[i], 'home');
+      this.drawPlayer(frame.away_players[i], 'away');
     }
     this.drawScore(context, frame.score.home, frame.score.away);
     this.drawTime(context, frame.time);
+  },
+
+  drawPlayer: function(data, side) {
+    var texture = this.getPlayerTexture(side, data.type);
+
+    this.rotateAndPaintImage(
+      this.context,
+      texture,
+      data.angle,
+      data.x,
+      data.y
+    );
+  },
+
+  getPlayerTexture: function(side, type) {
+    return this.playerTextures[side][type];
   },
 
   play: function() {
@@ -69,6 +86,8 @@ var Player = {
   },
 
   init: function(canvas) {
+    var texture;
+
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
     this.context.scale(0.5, 0.5)
@@ -79,11 +98,31 @@ var Player = {
     this.ballObj = new Image();
     this.ballObj.src = 'assets/images/ball.png';
 
-    this.homeObj = new Image();
-    this.homeObj.src = 'assets/images/average_home.png';
+    this.playerTextures = { home: {}, away: {} };
+    
+    texture = new Image();
+    texture.src = 'assets/images/average_home.png';
+    this.playerTextures.home.average = texture;
 
-    this.awayObj = new Image();
-    this.awayObj.src = 'assets/images/average_away.png';
+    texture = new Image();
+    texture.src = 'assets/images/average_away.png';
+    this.playerTextures.away.average = texture;
+    
+    texture = new Image();
+    texture.src = 'assets/images/fast_home.png';
+    this.playerTextures.home.fast = texture;
+
+    texture = new Image();
+    texture.src = 'assets/images/fast_away.png';
+    this.playerTextures.away.fast = texture;
+    
+    texture = new Image();
+    texture.src = 'assets/images/captain_home.png';
+    this.playerTextures.home.captain = texture;
+
+    texture = new Image();
+    texture.src = 'assets/images/captain_away.png';
+    this.playerTextures.away.captain = texture;
 
     $.getJSON("recorded_game.json", function(json) {
       this.frames = json.frames;

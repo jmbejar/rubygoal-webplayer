@@ -1,20 +1,20 @@
-# &lt;rubygoal-element&gt;
+# &lt;rubygoal-webplayer&gt;
 
 > Rubygoal Web Player
 
 ## Demo
 
-[Check it live!](http://jmbejar.github.io/rubygoal-element)
+[Check it live!](http://jmbejar.github.io/rubygoal-webplayer)
 
 ## Install
 
 Install the component using [Bower](http://bower.io/):
 
 ```sh
-$ bower install rubygoal-element --save
+$ bower install rubygoal-webplayer --save
 ```
 
-Or [download as ZIP](https://github.com/jmbejar/rubygoal-element/archive/master.zip).
+Or [download as ZIP](https://github.com/jmbejar/rubygoal-player/archive/master.zip).
 
 ## Usage
 
@@ -27,7 +27,7 @@ Or [download as ZIP](https://github.com/jmbejar/rubygoal-element/archive/master.
 2. Import custom element:
 
     ```html
-    <link rel="import" href="bower_components/rubygoal-element/rubygoal-player.html">
+    <link rel="import" href="bower_components/rubygoal-webplayer/rubygoal-player.html">
     ```
 
 3. Start using it!
@@ -78,7 +78,7 @@ In order to run it locally you'll need to fetch some dependencies and a basic se
 
 ## History
 
-For detailed changelog, check [Releases](https://github.com/jmbejar/rubygoal-element/releases).
+For detailed changelog, check [Releases](https://github.com/jmbejar/rubygoal-player/releases).
 
 ## License
 

@@ -1,6 +1,6 @@
 {
-    "name": "rubygoal-element",
-    "version": "0.0.0",
+    "name": "rubygoal-webplayer",
+    "version": "1.0.0",
     "description": "Rubygoal Web Player",
     "license": "MIT",
     "main": "rubygoal-player.html",

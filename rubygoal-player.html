@@ -5,7 +5,7 @@
 <dom-module id="rubygoal-player">
   <template>
     <style>
-      div.button-container {
+      div.button-container, div.loader-container {
         text-align: center;
         width: 960px;
       }
@@ -25,7 +25,10 @@
         background-image: url('/bower_components/rubygoal-webplayer/assets/images/button_grey_pause.png');
       }
     </style>
-    
+
+    <div class="loader-container">
+      <img src="assets/images/loader.gif" id="loader">
+    </div>
     <canvas id="player" height="540" width="960"></canvas>
     <div class="button-container">
       <a href="javascript:void" id="play" class="button"></a>
@@ -48,7 +51,7 @@ Polymer({
   },
 
   attached: function() {
-    Player.init(this.$.player, this.$.play, this.$.pause, this.$.stop, this.src);
+    Player.init(this.$.player, this.$.play, this.$.pause, this.$.stop, this.$.loader, this.src);
   }
 });
 </script>

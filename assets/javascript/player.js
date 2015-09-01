@@ -126,7 +126,7 @@ var Player = {
     }
   },
 
-  init: function(canvas, play_btn, pause_btn, stop_btn, src) {
+  init: function(canvas, play_btn, pause_btn, stop_btn, loader, src) {
     var texture;
     var webplayer_path = '/bower_components/rubygoal-webplayer/';
     var assets_path = webplayer_path + 'assets/images/';
@@ -137,6 +137,7 @@ var Player = {
     $(pause_btn).click(this.pause_button.bind(this));
     $(stop_btn).click(this.stop_button.bind(this));
 
+    this.loader = loader;
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
     this.context.scale(0.5, 0.5)
@@ -180,6 +181,7 @@ var Player = {
       this.teams = json.teams;
 
       this.loaded = true;
+      $(this.loader).hide();
       this.drawFrame(this.frames[0]);
     }.bind(this));
   }

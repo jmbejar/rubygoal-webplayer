@@ -16,8 +16,12 @@
 Polymer({
   is: 'rubygoal-player',
 
+  properties: {
+    src: String
+  },
+
   attached: function() {
-    Player.init(this.$.player);
+    Player.init(this.$.player, this.src);
   }
 });
 </script>

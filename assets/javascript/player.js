@@ -103,7 +103,7 @@ var Player = {
     }.bind(this), 1000.0 / 60);
   },
 
-  init: function(canvas) {
+  init: function(canvas, src) {
     var texture;
     var webplayer_path = '/bower_components/rubygoal-webplayer/';
     var assets_path = webplayer_path + 'assets/images/';
@@ -144,7 +144,7 @@ var Player = {
     texture.src = assets_path + 'captain_away.png';
     this.playerTextures.away.captain = texture;
 
-    $.getJSON(webplayer_path + "recorded_game.json", function(json) {
+    $.getJSON(src, function(json) {
       this.frames = json.frames;
       this.teams = json.teams;
 

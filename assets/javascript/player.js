@@ -94,19 +94,48 @@ var Player = {
   },
 
   play: function() {
-    var timer = setInterval(function(){
+    this.timer = setInterval(function(){
       if (this.frames.length > 0) {
         this.drawFrame(this.frames.shift());
       } else {
-        clearInterval(timer);
+        clearInterval(this.timer);
+        this.timer = undefined;
       } 
     }.bind(this), 1000.0 / 60);
   },
 
-  init: function(canvas, src) {
+  play_button: function() {
+    if (this.loaded && this.timer === undefined) {
+      this.play();
+    }
+  },
+
+  stop_button: function() {
+    if (this.loaded) {
+      this.pause_button();
+
+      this.frames = this.original_frames.slice();
+      this.drawFrame(this.frames[0]);
+    }
+  },
+
+  pause_button: function() {
+    if (this.timer !== undefined) {
+      clearInterval(this.timer);
+      this.timer = undefined;
+    }
+  },
+
+  init: function(canvas, play_btn, pause_btn, stop_btn, src) {
     var texture;
     var webplayer_path = '/bower_components/rubygoal-webplayer/';
     var assets_path = webplayer_path + 'assets/images/';
+
+    this.loaded = false;
+
+    $(play_btn).click(this.play_button.bind(this));
+    $(pause_btn).click(this.pause_button.bind(this));
+    $(stop_btn).click(this.stop_button.bind(this));
 
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
@@ -145,10 +174,13 @@ var Player = {
     this.playerTextures.away.captain = texture;
 
     $.getJSON(src, function(json) {
+      this.original_frames = json.frames.slice();
+
       this.frames = json.frames;
       this.teams = json.teams;
 
-      this.play();
+      this.loaded = true;
+      this.drawFrame(this.frames[0]);
     }.bind(this));
   }
 }

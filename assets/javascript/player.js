@@ -105,44 +105,46 @@ var Player = {
 
   init: function(canvas) {
     var texture;
+    var webplayer_path = '/bower_components/rubygoal-webplayer/';
+    var assets_path = webplayer_path + 'assets/images/';
 
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
     this.context.scale(0.5, 0.5)
 
     this.backgroundObj = new Image();
-    this.backgroundObj.src = 'assets/images/background.png';
+    this.backgroundObj.src = assets_path + 'background.png';
 
     this.ballObj = new Image();
-    this.ballObj.src = 'assets/images/ball.png';
+    this.ballObj.src = assets_path + 'ball.png';
 
     this.playerTextures = { home: {}, away: {} };
 
     texture = new Image();
-    texture.src = 'assets/images/average_home.png';
+    texture.src = assets_path + 'average_home.png';
     this.playerTextures.home.average = texture;
 
     texture = new Image();
-    texture.src = 'assets/images/average_away.png';
+    texture.src = assets_path + 'average_away.png';
     this.playerTextures.away.average = texture;
 
     texture = new Image();
-    texture.src = 'assets/images/fast_home.png';
+    texture.src = assets_path + 'fast_home.png';
     this.playerTextures.home.fast = texture;
 
     texture = new Image();
-    texture.src = 'assets/images/fast_away.png';
+    texture.src = assets_path + 'fast_away.png';
     this.playerTextures.away.fast = texture;
 
     texture = new Image();
-    texture.src = 'assets/images/captain_home.png';
+    texture.src = assets_path + 'captain_home.png';
     this.playerTextures.home.captain = texture;
 
     texture = new Image();
-    texture.src = 'assets/images/captain_away.png';
+    texture.src = assets_path + 'captain_away.png';
     this.playerTextures.away.captain = texture;
 
-    $.getJSON("recorded_game.json", function(json) {
+    $.getJSON(webplayer_path + "recorded_game.json", function(json) {
       this.frames = json.frames;
       this.teams = json.teams;
 

@@ -129,6 +129,7 @@ var Player = {
   load: function(src) {
     this.pause_button();
     this.loaded = false;
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     $(this.loader).show();
 
     $.getJSON(src, function(json) {

@@ -129,7 +129,9 @@ var Player = {
   load: function(src) {
     this.pause_button();
     this.loaded = false;
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    // TODO Reduce image size by a half
+    this.context.clearRect(0, 0, this.canvas.width * 2, this.canvas.height * 2);
     $(this.loader).show();
 
     $.getJSON(src, function(json) {
@@ -159,6 +161,8 @@ var Player = {
     this.loader = loader;
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
+
+    // TODO Reduce image size by a half
     this.context.scale(0.5, 0.5)
 
     this.backgroundObj = new Image();

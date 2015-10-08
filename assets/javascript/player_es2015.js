@@ -1,11 +1,11 @@
-var Player = {
+let Player = {
   formatTime: function(secs) {
     if (secs < 0) {
       secs = 0;
     }
 
-    var minutes = Math.floor(secs / 60);
-    var seconds = Math.floor(secs - (minutes * 60));
+    let minutes = Math.floor(secs / 60);
+    let seconds = Math.floor(secs - (minutes * 60));
 
     if (minutes < 10) {
       minutes = `0${minutes}`;
@@ -13,12 +13,12 @@ var Player = {
     if (seconds < 10) {
       seconds = `0${seconds}`;
     }
-    var time = `${minutes}:${seconds}`;
+    let time = `${minutes}:${seconds}`;
     return time;
   },
 
   rotateAndPaintImage: function(texture, angle, x, y) {
-    var context = this.context;
+    let context = this.context;
 
     context.save();
     context.translate(x, y);
@@ -28,7 +28,7 @@ var Player = {
   },
 
   rotateAndFillText: function(text, font, style, x, y, angle) {
-    var context = this.context;
+    let context = this.context;
 
     context.save();
     context.translate(x, y);
@@ -41,7 +41,7 @@ var Player = {
   },
 
   drawTime: function(time) {
-    var context = this.context;
+    let context = this.context;
 
     context.font="48px Source Sans Pro";
     context.fillStyle = '#6d6e70';
@@ -49,7 +49,7 @@ var Player = {
   },
 
   drawScore: function(home, away) {
-    var context = this.context;
+    let context = this.context;
 
     context.font="48px Source Sans Pro";
     context.fillStyle = 'white';
@@ -58,21 +58,21 @@ var Player = {
   },
 
   drawTeamNames: function() {
-    var context = this.context;
-    var font = "64px Source Sans Pro";
-    var style = 'white';
+    let context = this.context;
+    let font = "64px Source Sans Pro";
+    let style = 'white';
 
     this.rotateAndFillText(this.teams.home, font, style, 120, 570, 270);
     this.rotateAndFillText(this.teams.away, font, style, 1790, 570, 90);
   },
 
   drawFrame: function(frame) {
-    var context = this.context;
+    let context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
     this.rotateAndPaintImage(this.ballObj, 0, frame.ball.x, frame.ball.y);
 
-    for(var i = 0; i < 11; i += 1) {
+    for(let i = 0; i < 11; i += 1) {
       this.drawPlayer(frame.home_players[i], 'home');
       this.drawPlayer(frame.away_players[i], 'away');
     }
@@ -83,7 +83,7 @@ var Player = {
   },
 
   drawPlayer: function(data, side) {
-    var texture = this.getPlayerTexture(side, data.type);
+    let texture = this.getPlayerTexture(side, data.type);
 
     this.rotateAndPaintImage(
       texture,
@@ -104,7 +104,7 @@ var Player = {
       } else {
         clearInterval(this.timer);
         this.timer = undefined;
-      } 
+      }
     }.bind(this), 1000.0 / 60);
   },
 
@@ -152,9 +152,9 @@ var Player = {
   },
 
   init: function(canvas, play_btn, pause_btn, stop_btn, loader) {
-    var texture;
-    var webplayer_path = '/bower_components/rubygoal-webplayer/';
-    var assets_path = `${webplayer_path}assets/images/`;
+    let texture;
+    let webplayer_path = '/bower_components/rubygoal-webplayer/';
+    let assets_path = `${webplayer_path}assets/images/`;
 
     this.loaded = false;
 

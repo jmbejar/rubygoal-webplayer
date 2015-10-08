@@ -148,7 +148,7 @@ var Player = {
   },
 
   init: function init(canvas, play_btn, pause_btn, stop_btn, loader) {
-    var texture;
+    var texture = undefined;
     var webplayer_path = '/bower_components/rubygoal-webplayer/';
     var assets_path = webplayer_path + 'assets/images/';
 

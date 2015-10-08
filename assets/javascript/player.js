@@ -69,15 +69,20 @@ var Player = {
   },
 
   drawFrame: function drawFrame(frame) {
+    var _this = this;
+
     var context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
     this.rotateAndPaintImage(this.ballObj, 0, frame.ball.x, frame.ball.y);
 
-    for (var i = 0; i < 11; i += 1) {
-      this.drawPlayer(frame.home_players[i], 'home');
-      this.drawPlayer(frame.away_players[i], 'away');
-    }
+    frame.home_players.forEach(function (p) {
+      _this.drawPlayer(p, 'home');
+    });
+    frame.away_players.forEach(function (p) {
+      _this.drawPlayer(p, 'away');
+    });
+
     this.drawScore(frame.score.home, frame.score.away);
     this.drawTime(frame.time);
 

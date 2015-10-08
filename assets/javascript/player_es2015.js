@@ -19,20 +19,22 @@ let Player = {
 
   rotateAndPaintImage: function(texture, angle, x, y) {
     let context = this.context;
+    const degToRad = Math.PI / 180;
 
     context.save();
     context.translate(x, y);
-    context.rotate(angle * Math.PI/180);
+    context.rotate(angle * degToRad);
     context.drawImage(texture, -texture.width / 2, -texture.height / 2, texture.width, texture.height);
     context.restore();
   },
 
   rotateAndFillText: function(text, font, style, x, y, angle) {
     let context = this.context;
+    const degToRad = Math.PI / 180;
 
     context.save();
     context.translate(x, y);
-    context.rotate(angle * Math.PI / 180);
+    context.rotate(angle * degToRad);
     context.font = font;
     context.textAlign = 'center';
     context.fillStyle = style;
@@ -101,6 +103,8 @@ let Player = {
   },
 
   play: function() {
+    const frameRate = 1000.0 / 60;
+
     this.timer = setInterval( () => {
       if (this.frames.length > 0) {
         this.drawFrame(this.frames.shift());
@@ -108,7 +112,7 @@ let Player = {
         clearInterval(this.timer);
         this.timer = undefined;
       }
-    }, 1000.0 / 60);
+    }, frameRate);
   },
 
   play_button: function() {

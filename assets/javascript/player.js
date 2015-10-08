@@ -21,20 +21,22 @@ var Player = {
 
   rotateAndPaintImage: function rotateAndPaintImage(texture, angle, x, y) {
     var context = this.context;
+    var degToRad = Math.PI / 180;
 
     context.save();
     context.translate(x, y);
-    context.rotate(angle * Math.PI / 180);
+    context.rotate(angle * degToRad);
     context.drawImage(texture, -texture.width / 2, -texture.height / 2, texture.width, texture.height);
     context.restore();
   },
 
   rotateAndFillText: function rotateAndFillText(text, font, style, x, y, angle) {
     var context = this.context;
+    var degToRad = Math.PI / 180;
 
     context.save();
     context.translate(x, y);
-    context.rotate(angle * Math.PI / 180);
+    context.rotate(angle * degToRad);
     context.font = font;
     context.textAlign = 'center';
     context.fillStyle = style;
@@ -102,6 +104,8 @@ var Player = {
   play: function play() {
     var _this2 = this;
 
+    var frameRate = 1000.0 / 60;
+
     this.timer = setInterval(function () {
       if (_this2.frames.length > 0) {
         _this2.drawFrame(_this2.frames.shift());
@@ -109,7 +113,7 @@ var Player = {
         clearInterval(_this2.timer);
         _this2.timer = undefined;
       }
-    }, 1000.0 / 60);
+    }, frameRate);
   },
 
   play_button: function play_button() {

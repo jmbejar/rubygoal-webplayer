@@ -7,9 +7,13 @@ var Player = {
     var minutes = Math.floor(secs / 60);
     var seconds = Math.floor(secs - (minutes * 60));
 
-    if (minutes < 10) {minutes = "0"+minutes;}
-    if (seconds < 10) {seconds = "0"+seconds;}
-    var time    = minutes+':'+seconds;
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
+    }
+    var time = `${minutes}:${seconds}`;
     return time;
   },
 
@@ -150,7 +154,7 @@ var Player = {
   init: function(canvas, play_btn, pause_btn, stop_btn, loader) {
     var texture;
     var webplayer_path = '/bower_components/rubygoal-webplayer/';
-    var assets_path = webplayer_path + 'assets/images/';
+    var assets_path = `${webplayer_path}assets/images/`;
 
     this.loaded = false;
 
@@ -166,35 +170,35 @@ var Player = {
     this.context.scale(0.5, 0.5)
 
     this.backgroundObj = new Image();
-    this.backgroundObj.src = assets_path + 'background.png';
+    this.backgroundObj.src = `${assets_path}background.png`;
 
     this.ballObj = new Image();
-    this.ballObj.src = assets_path + 'ball.png';
+    this.ballObj.src = `${assets_path}ball.png`;
 
     this.playerTextures = { home: {}, away: {} };
 
     texture = new Image();
-    texture.src = assets_path + 'average_home.png';
+    texture.src = `${assets_path}average_home.png`;
     this.playerTextures.home.average = texture;
 
     texture = new Image();
-    texture.src = assets_path + 'average_away.png';
+    texture.src = `${assets_path}average_away.png`;
     this.playerTextures.away.average = texture;
 
     texture = new Image();
-    texture.src = assets_path + 'fast_home.png';
+    texture.src = `${assets_path}fast_home.png`;
     this.playerTextures.home.fast = texture;
 
     texture = new Image();
-    texture.src = assets_path + 'fast_away.png';
+    texture.src = `${assets_path}fast_away.png`;
     this.playerTextures.away.fast = texture;
 
     texture = new Image();
-    texture.src = assets_path + 'captain_home.png';
+    texture.src = `${assets_path}captain_home.png`;
     this.playerTextures.home.captain = texture;
 
     texture = new Image();
-    texture.src = assets_path + 'captain_away.png';
+    texture.src = `${assets_path}captain_away.png`;
     this.playerTextures.away.captain = texture;
   }
 }

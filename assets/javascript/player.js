@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var Player = {
   formatTime: function formatTime(secs) {
@@ -10,10 +10,10 @@ var Player = {
     var seconds = Math.floor(secs - minutes * 60);
 
     if (minutes < 10) {
-      minutes = "0" + minutes;
+      minutes = '0' + minutes;
     }
     if (seconds < 10) {
-      seconds = "0" + seconds;
+      seconds = '0' + seconds;
     }
     var time = minutes + ':' + seconds;
     return time;

@@ -1,35 +1,29 @@
-"use strict";
-
 var Player = {
-  formatTime: function formatTime(secs) {
+  formatTime: function(secs) {
     if (secs < 0) {
       secs = 0;
     }
 
     var minutes = Math.floor(secs / 60);
-    var seconds = Math.floor(secs - minutes * 60);
+    var seconds = Math.floor(secs - (minutes * 60));
 
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    var time = minutes + ':' + seconds;
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = minutes+':'+seconds;
     return time;
   },
 
-  rotateAndPaintImage: function rotateAndPaintImage(texture, angle, x, y) {
+  rotateAndPaintImage: function(texture, angle, x, y) {
     var context = this.context;
 
     context.save();
     context.translate(x, y);
-    context.rotate(angle * Math.PI / 180);
+    context.rotate(angle * Math.PI/180);
     context.drawImage(texture, -texture.width / 2, -texture.height / 2, texture.width, texture.height);
     context.restore();
   },
 
-  rotateAndFillText: function rotateAndFillText(text, font, style, x, y, angle) {
+  rotateAndFillText: function(text, font, style, x, y, angle) {
     var context = this.context;
 
     context.save();
@@ -42,24 +36,24 @@ var Player = {
     context.restore();
   },
 
-  drawTime: function drawTime(time) {
+  drawTime: function(time) {
     var context = this.context;
 
-    context.font = "48px Source Sans Pro";
+    context.font="48px Source Sans Pro";
     context.fillStyle = '#6d6e70';
     context.fillText(this.formatTime(time), 820, 60);
   },
 
-  drawScore: function drawScore(home, away) {
+  drawScore: function(home, away) {
     var context = this.context;
 
-    context.font = "48px Source Sans Pro";
+    context.font="48px Source Sans Pro";
     context.fillStyle = 'white';
     context.fillText(home, 1140, 60);
     context.fillText(away, 1210, 60);
   },
 
-  drawTeamNames: function drawTeamNames() {
+  drawTeamNames: function() {
     var context = this.context;
     var font = "64px Source Sans Pro";
     var style = 'white';
@@ -68,13 +62,13 @@ var Player = {
     this.rotateAndFillText(this.teams.away, font, style, 1790, 570, 90);
   },
 
-  drawFrame: function drawFrame(frame) {
+  drawFrame: function(frame) {
     var context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
     this.rotateAndPaintImage(this.ballObj, 0, frame.ball.x, frame.ball.y);
 
-    for (var i = 0; i < 11; i += 1) {
+    for(var i = 0; i < 11; i += 1) {
       this.drawPlayer(frame.home_players[i], 'home');
       this.drawPlayer(frame.away_players[i], 'away');
     }
@@ -84,34 +78,39 @@ var Player = {
     this.drawTeamNames();
   },
 
-  drawPlayer: function drawPlayer(data, side) {
+  drawPlayer: function(data, side) {
     var texture = this.getPlayerTexture(side, data.type);
 
-    this.rotateAndPaintImage(texture, data.angle, data.x, data.y);
+    this.rotateAndPaintImage(
+      texture,
+      data.angle,
+      data.x,
+      data.y
+    );
   },
 
-  getPlayerTexture: function getPlayerTexture(side, type) {
+  getPlayerTexture: function(side, type) {
     return this.playerTextures[side][type];
   },
 
-  play: function play() {
-    this.timer = setInterval((function () {
+  play: function() {
+    this.timer = setInterval(function(){
       if (this.frames.length > 0) {
         this.drawFrame(this.frames.shift());
       } else {
         clearInterval(this.timer);
         this.timer = undefined;
-      }
-    }).bind(this), 1000.0 / 60);
+      } 
+    }.bind(this), 1000.0 / 60);
   },
 
-  play_button: function play_button() {
+  play_button: function() {
     if (this.loaded && this.timer === undefined) {
       this.play();
     }
   },
 
-  stop_button: function stop_button() {
+  stop_button: function() {
     if (this.loaded) {
       this.pause_button();
 
@@ -120,14 +119,14 @@ var Player = {
     }
   },
 
-  pause_button: function pause_button() {
+  pause_button: function() {
     if (this.timer !== undefined) {
       clearInterval(this.timer);
       this.timer = undefined;
     }
   },
 
-  load: function load(src) {
+  load: function(src) {
     this.pause_button();
     this.loaded = false;
 
@@ -135,7 +134,7 @@ var Player = {
     this.context.clearRect(0, 0, this.canvas.width * 2, this.canvas.height * 2);
     $(this.loader).show();
 
-    $.getJSON(src, (function (json) {
+    $.getJSON(src, function(json) {
       this.original_frames = json.frames.slice();
 
       this.frames = json.frames;
@@ -144,10 +143,11 @@ var Player = {
       this.loaded = true;
       $(this.loader).hide();
       this.drawFrame(this.frames[0]);
-    }).bind(this));
+    }.bind(this));
+
   },
 
-  init: function init(canvas, play_btn, pause_btn, stop_btn, loader) {
+  init: function(canvas, play_btn, pause_btn, stop_btn, loader) {
     var texture;
     var webplayer_path = '/bower_components/rubygoal-webplayer/';
     var assets_path = webplayer_path + 'assets/images/';
@@ -163,7 +163,7 @@ var Player = {
     this.context = canvas.getContext('2d');
 
     // TODO Reduce image size by a half
-    this.context.scale(0.5, 0.5);
+    this.context.scale(0.5, 0.5)
 
     this.backgroundObj = new Image();
     this.backgroundObj.src = assets_path + 'background.png';
@@ -197,4 +197,4 @@ var Player = {
     texture.src = assets_path + 'captain_away.png';
     this.playerTextures.away.captain = texture;
   }
-};
+}

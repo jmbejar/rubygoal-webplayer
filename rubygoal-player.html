@@ -56,12 +56,12 @@ Polymer({
   },
 
   attached: function() {
-    Player.init(this.$.player, this.$.play, this.$.pause, this.$.stop, this.$.loader);
-    Player.load(this.src);
+    this.player = new Player(this.$.player, this.$.play, this.$.pause, this.$.stop, this.$.loader);
+    this.player.load(this.src);
   },
 
   attributeChanged: function() {
-    Player.load(this.src);
+    this.player.load(this.src);
   },
 });
 </script>

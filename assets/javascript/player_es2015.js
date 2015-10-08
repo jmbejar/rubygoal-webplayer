@@ -1,5 +1,5 @@
-let Player = {
-  formatTime: function(secs) {
+class Player {
+  formatTime(secs) {
     if (secs < 0) {
       secs = 0;
     }
@@ -15,9 +15,9 @@ let Player = {
     }
     let time = `${minutes}:${seconds}`;
     return time;
-  },
+  }
 
-  rotateAndPaintImage: function(texture, angle, x, y) {
+  rotateAndPaintImage(texture, angle, x, y) {
     let context = this.context;
     const degToRad = Math.PI / 180;
 
@@ -26,9 +26,9 @@ let Player = {
     context.rotate(angle * degToRad);
     context.drawImage(texture, -texture.width / 2, -texture.height / 2, texture.width, texture.height);
     context.restore();
-  },
+  }
 
-  rotateAndFillText: function(text, font, style, x, y, angle) {
+  rotateAndFillText(text, font, style, x, y, angle) {
     let context = this.context;
     const degToRad = Math.PI / 180;
 
@@ -40,35 +40,35 @@ let Player = {
     context.fillStyle = style;
     context.fillText(text, 0, 0);
     context.restore();
-  },
+  }
 
-  drawTime: function(time) {
+  drawTime(time) {
     let context = this.context;
 
     context.font="48px Source Sans Pro";
     context.fillStyle = '#6d6e70';
     context.fillText(this.formatTime(time), 820, 60);
-  },
+  }
 
-  drawScore: function(home, away) {
+  drawScore(home, away) {
     let context = this.context;
 
     context.font="48px Source Sans Pro";
     context.fillStyle = 'white';
     context.fillText(home, 1140, 60);
     context.fillText(away, 1210, 60);
-  },
+  }
 
-  drawTeamNames: function() {
+  drawTeamNames() {
     let context = this.context;
     let font = "64px Source Sans Pro";
     let style = 'white';
 
     this.rotateAndFillText(this.teams.home, font, style, 120, 570, 270);
     this.rotateAndFillText(this.teams.away, font, style, 1790, 570, 90);
-  },
+  }
 
-  drawFrame: function(frame) {
+  drawFrame(frame) {
     let context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
@@ -85,9 +85,9 @@ let Player = {
     this.drawTime(frame.time);
 
     this.drawTeamNames();
-  },
+  }
 
-  drawPlayer: function(data, side) {
+  drawPlayer(data, side) {
     let texture = this.getPlayerTexture(side, data.type);
 
     this.rotateAndPaintImage(
@@ -96,13 +96,13 @@ let Player = {
       data.x,
       data.y
     );
-  },
+  }
 
-  getPlayerTexture: function(side, type) {
+  getPlayerTexture(side, type) {
     return this.playerTextures[side][type];
-  },
+  }
 
-  play: function() {
+  play() {
     const frameRate = 1000.0 / 60;
 
     this.timer = setInterval( () => {
@@ -113,31 +113,31 @@ let Player = {
         this.timer = undefined;
       }
     }, frameRate);
-  },
+  }
 
-  play_button: function() {
+  play_button() {
     if (this.loaded && this.timer === undefined) {
       this.play();
     }
-  },
+  }
 
-  stop_button: function() {
+  stop_button() {
     if (this.loaded) {
       this.pause_button();
 
       this.frames = this.original_frames.slice();
       this.drawFrame(this.frames[0]);
     }
-  },
+  }
 
-  pause_button: function() {
+  pause_button() {
     if (this.timer !== undefined) {
       clearInterval(this.timer);
       this.timer = undefined;
     }
-  },
+  }
 
-  load: function(src) {
+  load(src) {
     this.pause_button();
     this.loaded = false;
 
@@ -155,10 +155,9 @@ let Player = {
       $(this.loader).hide();
       this.drawFrame(this.frames[0]);
     });
+  }
 
-  },
-
-  init: function(canvas, play_btn, pause_btn, stop_btn, loader) {
+  constructor(canvas, play_btn, pause_btn, stop_btn, loader) {
     let texture;
     let webplayer_path = '/bower_components/rubygoal-webplayer/';
     let assets_path = `${webplayer_path}assets/images/`;

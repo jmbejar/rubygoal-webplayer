@@ -100,14 +100,16 @@ var Player = {
   },
 
   play: function play() {
-    this.timer = setInterval((function () {
-      if (this.frames.length > 0) {
-        this.drawFrame(this.frames.shift());
+    var _this2 = this;
+
+    this.timer = setInterval(function () {
+      if (_this2.frames.length > 0) {
+        _this2.drawFrame(_this2.frames.shift());
       } else {
-        clearInterval(this.timer);
-        this.timer = undefined;
+        clearInterval(_this2.timer);
+        _this2.timer = undefined;
       }
-    }).bind(this), 1000.0 / 60);
+    }, 1000.0 / 60);
   },
 
   play_button: function play_button() {
@@ -133,6 +135,8 @@ var Player = {
   },
 
   load: function load(src) {
+    var _this3 = this;
+
     this.pause_button();
     this.loaded = false;
 
@@ -140,16 +144,16 @@ var Player = {
     this.context.clearRect(0, 0, this.canvas.width * 2, this.canvas.height * 2);
     $(this.loader).show();
 
-    $.getJSON(src, (function (json) {
-      this.original_frames = json.frames.slice();
+    $.getJSON(src, function (json) {
+      _this3.original_frames = json.frames.slice();
 
-      this.frames = json.frames;
-      this.teams = json.teams;
+      _this3.frames = json.frames;
+      _this3.teams = json.teams;
 
-      this.loaded = true;
-      $(this.loader).hide();
-      this.drawFrame(this.frames[0]);
-    }).bind(this));
+      _this3.loaded = true;
+      $(_this3.loader).hide();
+      _this3.drawFrame(_this3.frames[0]);
+    });
   },
 
   init: function init(canvas, play_btn, pause_btn, stop_btn, loader) {

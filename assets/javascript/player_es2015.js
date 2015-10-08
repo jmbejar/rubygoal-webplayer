@@ -101,14 +101,14 @@ let Player = {
   },
 
   play: function() {
-    this.timer = setInterval(function(){
+    this.timer = setInterval( () => {
       if (this.frames.length > 0) {
         this.drawFrame(this.frames.shift());
       } else {
         clearInterval(this.timer);
         this.timer = undefined;
       }
-    }.bind(this), 1000.0 / 60);
+    }, 1000.0 / 60);
   },
 
   play_button: function() {
@@ -141,7 +141,7 @@ let Player = {
     this.context.clearRect(0, 0, this.canvas.width * 2, this.canvas.height * 2);
     $(this.loader).show();
 
-    $.getJSON(src, function(json) {
+    $.getJSON(src, json => {
       this.original_frames = json.frames.slice();
 
       this.frames = json.frames;
@@ -150,7 +150,7 @@ let Player = {
       this.loaded = true;
       $(this.loader).hide();
       this.drawFrame(this.frames[0]);
-    }.bind(this));
+    });
 
   },
 

@@ -88,7 +88,7 @@ var Player = (function () {
       var context = this.context;
 
       context.drawImage(this.backgroundObj, 0, 0);
-      this.rotateAndPaintImage(this.ballObj, 0, frame.ball.x, frame.ball.y);
+      this.rotateAndPaintImage(this.ballObj, 0, frame.ball[0], frame.ball[1]);
 
       frame.home_players.forEach(function (p) {
         _this.drawPlayer(p, 'home');

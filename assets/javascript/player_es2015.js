@@ -185,26 +185,26 @@ class Player {
 
     texture = new Image();
     texture.src = `${assets_path}average_home.png`;
-    this.playerTextures.home.average = texture;
+    this.playerTextures.home.a = texture;
 
     texture = new Image();
     texture.src = `${assets_path}average_away.png`;
-    this.playerTextures.away.average = texture;
+    this.playerTextures.away.a = texture;
 
     texture = new Image();
     texture.src = `${assets_path}fast_home.png`;
-    this.playerTextures.home.fast = texture;
+    this.playerTextures.home.f = texture;
 
     texture = new Image();
     texture.src = `${assets_path}fast_away.png`;
-    this.playerTextures.away.fast = texture;
+    this.playerTextures.away.f = texture;
 
     texture = new Image();
     texture.src = `${assets_path}captain_home.png`;
-    this.playerTextures.home.captain = texture;
+    this.playerTextures.home.c = texture;
 
     texture = new Image();
     texture.src = `${assets_path}captain_away.png`;
-    this.playerTextures.away.captain = texture;
+    this.playerTextures.away.c = texture;
   }
 }

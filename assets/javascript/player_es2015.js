@@ -81,7 +81,7 @@ class Player {
       this.drawPlayer(p, 'away')
     });
 
-    this.drawScore(frame.score.home, frame.score.away);
+    this.drawScore(frame.score[0], frame.score[1]);
     this.drawTime(frame.time);
 
     this.drawTeamNames();

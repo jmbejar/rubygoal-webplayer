@@ -88,13 +88,13 @@ class Player {
   }
 
   drawPlayer(data, side) {
-    let texture = this.getPlayerTexture(side, data.type);
+    let texture = this.getPlayerTexture(side, data[3]);
 
     this.rotateAndPaintImage(
       texture,
-      data.angle,
-      data.x,
-      data.y
+      data[2],
+      data[0],
+      data[1]
     );
   }
 

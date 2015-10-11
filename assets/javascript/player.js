@@ -105,9 +105,9 @@ var Player = (function () {
   }, {
     key: 'drawPlayer',
     value: function drawPlayer(data, side) {
-      var texture = this.getPlayerTexture(side, data.type);
+      var texture = this.getPlayerTexture(side, data[3]);
 
-      this.rotateAndPaintImage(texture, data.angle, data.x, data.y);
+      this.rotateAndPaintImage(texture, data[2], data[0], data[1]);
     }
   }, {
     key: 'getPlayerTexture',

@@ -90,10 +90,10 @@ var Player = (function () {
       context.drawImage(this.backgroundObj, 0, 0);
       this.rotateAndPaintImage(this.ballObj, 0, frame.ball[0], frame.ball[1]);
 
-      frame.home_players.forEach(function (p) {
+      frame.home.forEach(function (p) {
         _this.drawPlayer(p, 'home');
       });
-      frame.away_players.forEach(function (p) {
+      frame.away.forEach(function (p) {
         _this.drawPlayer(p, 'away');
       });
 

@@ -74,10 +74,10 @@ class Player {
     context.drawImage(this.backgroundObj, 0, 0);
     this.rotateAndPaintImage(this.ballObj, 0, frame.ball[0], frame.ball[1]);
 
-    frame.home_players.forEach(p => {
+    frame.home.forEach(p => {
       this.drawPlayer(p, 'home')
     });
-    frame.away_players.forEach(p => {
+    frame.away.forEach(p => {
       this.drawPlayer(p, 'away')
     });
 

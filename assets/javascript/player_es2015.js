@@ -72,29 +72,29 @@ class Player {
     let context = this.context;
 
     context.drawImage(this.backgroundObj, 0, 0);
-    this.rotateAndPaintImage(this.ballObj, 0, frame.ball.x, frame.ball.y);
+    this.rotateAndPaintImage(this.ballObj, 0, frame.ball[0], frame.ball[1]);
 
-    frame.home_players.forEach(p => {
+    frame.home.forEach(p => {
       this.drawPlayer(p, 'home')
     });
-    frame.away_players.forEach(p => {
+    frame.away.forEach(p => {
       this.drawPlayer(p, 'away')
     });
 
-    this.drawScore(frame.score.home, frame.score.away);
+    this.drawScore(frame.score[0], frame.score[1]);
     this.drawTime(frame.time);
 
     this.drawTeamNames();
   }
 
   drawPlayer(data, side) {
-    let texture = this.getPlayerTexture(side, data.type);
+    let texture = this.getPlayerTexture(side, data[3]);
 
     this.rotateAndPaintImage(
       texture,
-      data.angle,
-      data.x,
-      data.y
+      data[2],
+      data[0],
+      data[1]
     );
   }
 
@@ -185,26 +185,26 @@ class Player {
 
     texture = new Image();
     texture.src = `${assets_path}average_home.png`;
-    this.playerTextures.home.average = texture;
+    this.playerTextures.home.a = texture;
 
     texture = new Image();
     texture.src = `${assets_path}average_away.png`;
-    this.playerTextures.away.average = texture;
+    this.playerTextures.away.a = texture;
 
     texture = new Image();
     texture.src = `${assets_path}fast_home.png`;
-    this.playerTextures.home.fast = texture;
+    this.playerTextures.home.f = texture;
 
     texture = new Image();
     texture.src = `${assets_path}fast_away.png`;
-    this.playerTextures.away.fast = texture;
+    this.playerTextures.away.f = texture;
 
     texture = new Image();
     texture.src = `${assets_path}captain_home.png`;
-    this.playerTextures.home.captain = texture;
+    this.playerTextures.home.c = texture;
 
     texture = new Image();
     texture.src = `${assets_path}captain_away.png`;
-    this.playerTextures.away.captain = texture;
+    this.playerTextures.away.c = texture;
   }
 }
